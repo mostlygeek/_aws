@@ -1,4 +1,4 @@
-## About
+## About AWS Tool Kit
 
 The [awscli](https://aws.amazon.com/cli/) is comprehensive and powerful. However, 
 it is rare to use it without having to lookup a man page. 
@@ -21,7 +21,7 @@ else to use it until it gets flushed out a bit more. :)
 
 ## Todo
 
-- searching for EC2 instances by regex `awstk ec2 find <regex>`
+- searching for EC2 instances by regex `awstk ec2 match <regex>`
 - pretty printing EC2 data, `awstk ec2 find <regex> | awstk ec2 pretty`
 
 

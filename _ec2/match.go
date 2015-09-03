@@ -1,4 +1,4 @@
-package main
+package _ec2
 
 import (
 	"fmt"
@@ -9,13 +9,8 @@ import (
 	"sync"
 
 	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/mostlygeek/_aws/_ec2"
+	"github.com/codegangsta/cli"
 )
-
-type instanceRegion struct {
-	instance ec2.Instance
-	region   string
-}
 
 // make a string that we can search with
 func makeString(region string, i *ec2.Instance) string {
@@ -38,14 +33,14 @@ func makeString(region string, i *ec2.Instance) string {
 	}, " ")
 }
 
-func main() {
+func Match(c *cli.Context) {
 
-	if len(os.Args) < 2 {
+	if len(c.Args()) == 0 {
 		log.Fatal("Require Regex")
 	}
-	matcher := regexp.MustCompile(os.Args[1])
+	matcher := regexp.MustCompile(c.Args()[0])
 
-	regions, err := _ec2.GetRegionNames()
+	regions, err := GetRegionNames()
 	logErr := log.New(os.Stderr, "ERROR:", log.LstdFlags)
 
 	if err != nil {
@@ -66,7 +61,7 @@ func main() {
 		go func(region string) {
 			defer wg.Done()
 
-			insts, err := _ec2.DescribeInstances(region)
+			insts, err := DescribeInstances(region)
 			if err != nil {
 				logErr.Print(err)
 			}
