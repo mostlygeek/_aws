@@ -17,8 +17,8 @@ func makeString(region string, i *ec2.Instance) string {
 
 	tags := make([]string, len(i.Tags))
 	for i, t := range i.Tags {
-		key := strings.ToUpper(*t.Key)
-		val := strings.ToLower(*t.Value)
+		key := *t.Key
+		val := *t.Value
 		tags[i] = fmt.Sprintf("%s:%s", key, val)
 	}
 
